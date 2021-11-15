@@ -1,6 +1,8 @@
 import P "Point";
 
 module {
+    public let ZERO : Rectangle = ((0, 0), (0, 0));
+
     public type Rectangle = (P.Point, P.Point);
 
     public func toText((i, a) : Rectangle) : Text {

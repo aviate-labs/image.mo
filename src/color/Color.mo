@@ -89,7 +89,7 @@ module {
     // Converts any Color to another color type from its own color model.
     public type Model = (c : Color) -> Color;
 
-    public func rgbaModel() : Model = func(c : Color) : Color {
+    public let rgbaModel : Model = func(c : Color) : Color {
         switch (c) {
             case (#RGBA(_)) c;
             case (_) {
@@ -105,7 +105,7 @@ module {
     };
 
 
-    public func rgba64Model() : Model = func(c : Color) : Color {
+    public let rgba64Model : Model = func(c : Color) : Color {
         switch (c) {
             case (#RGBA64(_)) c;
             case (_) {
@@ -120,7 +120,7 @@ module {
         };
     };
 
-    public func nrgbaModel() : Model = func(c : Color) : Color {
+    public let nrgbaModel : Model = func(c : Color) : Color {
         switch (c) {
             case (#NRGBA(_)) c;
             case (_) {
@@ -150,7 +150,7 @@ module {
         };
     };
 
-    public func nrgba64Model() : Model = func(c : Color) : Color {
+    public let nrgba64Model : Model = func(c : Color) : Color {
         switch (c) {
             case (#NRGBA64(_)) c;
             case (_) {
@@ -180,7 +180,7 @@ module {
         };
     };
 
-    public func alphaModel() : Model = func(c : Color) : Color {
+    public let alphaModel : Model = func(c : Color) : Color {
         switch (c) {
             case (#Alpha(_)) c;
             case (_) {
@@ -190,7 +190,7 @@ module {
         };
     };
 
-    public func alpha16Model() : Model = func(c : Color) : Color {
+    public let alpha16Model : Model = func(c : Color) : Color {
         switch (c) {
             case (#Alpha16(_)) c;
             case (_) {
@@ -200,7 +200,7 @@ module {
         };
     };
 
-    public func grayModel() : Model = func(c : Color) : Color {
+    public let grayModel : Model = func(c : Color) : Color {
         switch (c) {
             case (#Gray(_)) c;
             case (_) {
@@ -212,7 +212,7 @@ module {
         };
     };
 
-    public func gray16Model() : Model = func(c : Color) : Color {
+    public let gray16Model : Model = func(c : Color) : Color {
         switch (c) {
             case (#Gray16(_)) c;
             case (_) {

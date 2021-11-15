@@ -6,18 +6,28 @@ import R "Rectangle";
 
 module {
     public type Image = {
-        colorModel()         : C.Model;
+        convert(c : C.Color) : C.Color;
         bounds()             : R.Rectangle;
         at(x : Nat, y : Nat) : ?C.Color;
     };
 
     public class RGBA(
         rect : R.Rectangle,
+        pxs  : ?[var Nat8],
     ) : Image {
         private let stride : Nat         = 4 * R.dx(rect);
-        private let pixels : [var Nat8]  = Array.init<Nat8>(pixelBufferSize(4, rect), 0);
+        private let pixels : [var Nat8]  = switch (pxs) {
+            case (null) {
+                Array.init<Nat8>(pixelBufferSize(4, rect), 0);
+            };
+            case (? pxs) {
+                let s = pixelBufferSize(4, rect);
+                if (pxs.size() != s) assert(false);
+                pxs;
+            };
+        };
 
-        public let colorModel = C.rgbaModel;
+        public let convert : C.Model = C.rgbaModel;
 
         public func bounds() : R.Rectangle { rect };
 
@@ -36,10 +46,10 @@ module {
         };
 
         public func set(x : Nat, y : Nat, c : C.Color) {
-            switch (c) {
+            if (not R.inside((x, y), rect)) return;
+            let i = pixelOffset(x, y);
+            switch (convert(c)) {
                 case (#RGBA(r, g, b, a)) {
-                    if (not R.inside((x, y), rect)) return;
-                    let i = pixelOffset(x, y);
                     pixels[i] := r;
                     pixels[i+1] := g;
                     pixels[i+2] := b;
